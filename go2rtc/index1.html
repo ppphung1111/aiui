@@ -30,35 +30,6 @@
 </head>
 <body>
 <script type="module">
-function applyAutoPlay(eV){
-      eV._speed = 15; // frames per seconds (fps). Change this value to balance quality against performances
-      eV._tID=null;eV._vTime=0;
-      eV.muted=true;
-      eV.controls=false;
-      // wait for the onloadedmetadata event to get the eVeo duration
-      eV.onloadedmetadata = function() {
-          var duration = eV.duration;
-          eV._tID = setInterval(function(){
-            if(eV._vTime==null){eV._vTime=0}
-              eV._vTime++;
-              if (eV._vTime / eV._speed <=  duration){
-                  eV.currentTime = eV._vTime / eV._speed;
-              }else{
-                  clearInterval(eV._tID);
-                  eV._tID = null;
-              }
-          },1000 / eV._speed);
-      };
-      // clicking the eVeo stops inline playback and triggers native playback including audio. No need to seek.
-      eV.addEventListener('click', function(){
-          try{clearInterval(eV._tID);eV._tID = null;}catch(ee){}
-          if(eV._clicked==null){eV._clicked=true
-            this.play();
-            eV.controls=true;
-          }
-      });
-    }
-
 //import {VideoRTC} from './video-rtc.js';
 
 /**
@@ -304,12 +275,11 @@ class VideoRTC extends HTMLElement {
      */
     oninit() {
         this.video = document.createElement('video');
-        this.video.muted = true;
-        //this.video.autoplay = true;
-        //this.video.playsInline = true;
-        this.video.preload = 'auto';
-        applyAutoPlay(this.video)
+        this.video.autoplay = true;
         this.video.controls = kCtrlr;
+        this.video.playsInline = true;
+        this.video.muted = true;
+        this.video.preload = 'auto';
 
         this.video.style.display = 'block'; // fix bottom margin 4px
         this.video.style.width = '100%';
@@ -608,13 +578,12 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
             this.video.src = URL.createObjectURL(ms);
             this.video.srcObject = null;
         }
-        
-        this.video.muted = true;
-        //this.video.autoplay = true;
-        //this.video.playsInline = true;
+        this.video.autoplay = true;
         this.video.controls = kCtrlr;
+        this.video.playsInline = true;
+        this.video.muted = true;
         this.video.preload = 'auto';
-        //this.play();
+        this.play();
 
         this.mseCodecs = '';
 
@@ -690,7 +659,6 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
                     .map(tr => tr.receiver.track);
                 /** @type {HTMLVideoElement} */
                 const video2 = document.createElement('video');
-                applyAutoPlay(video2)
                 video2.addEventListener('loadeddata', () => this.onpcvideo(video2), {once: true});
                 video2.srcObject = new MediaStream(tracks);
             } else if (pc.connectionState === 'failed' || pc.connectionState === 'disconnected') {
@@ -832,10 +800,9 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
 
         /** @type {HTMLVideoElement} */
         const video2 = document.createElement('video');
+        video2.autoplay = true;
+        video2.playsInline = true;
         video2.muted = true;
-        applyAutoPlay(video2)
-        //video2.autoplay = true;
-        //video2.playsInline = true;
 
         video2.addEventListener('loadeddata', () => {
             if (!context) {
