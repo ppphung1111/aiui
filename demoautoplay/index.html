@@ -21,7 +21,7 @@
 <script>
 //autoplay muted controls
     var vid2 = document.getElementById("vid"); // get reference to the video object
-    applyAutoPlay(vid2)
+    setTimeout(function(){applyAutoPlay(vid2)},20000);
     function applyAutoPlay(eV){
       eV._speed = 15; // frames per seconds (fps). Change this value to balance quality against performances
       eV._vTime=0;
