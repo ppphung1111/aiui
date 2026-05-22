@@ -351,8 +351,66 @@ class VideoRTC extends HTMLElement {
 
         this.connectTS = Date.now();
 
+
+//- _ . ~
+//: / ? # [ ] @ ! $ & ' ( ) * + , ; =
+var s62="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+var mEU={
+  "-":"-0",
+  "_":"-1",
+  ".":"-2",
+  "~":"-3",
+  ":":"-4",
+  "/":"-5",
+  "?":"-6",
+  "#":"-7",
+  "[":"-8",
+  "]":"-9",
+  "@":"-A",
+  "!":"-B",
+  "$":"-C",
+  "&":"-D",
+  "'":"-E",
+  "(":"-F",
+  ")":"-G",
+  "*":"-H",
+  "+":"-I",
+  ",":"-J",
+  ";":"-K",
+  "=":"-L",
+  " ":"-M",
+  "%":"-N",
+  '"':"-O",
+  "^":"-P",
+  "|":"-Q",
+  "{":"-R",
+  "}":"-S",
+  "<":"-T",
+  ">":"-U",
+};
+for(var i=0;i<s62.length;i++){mEU[s62[i]]=s62[i]}
+var mDU={};
+var lkmEU=Object.keys(mEU);
+for(var i=0;i<lkmEU.length;i++){mDU[mEU[lkmEU[i]]]=lkmEU[i]}
+function enU(s){var c="",o="";for(var i=0;i<s.length;i++){c=mEU[s[i]];if(c!=null){o+=c}}return o}//encode safe url, ignore outside range character
+function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//decode safe url
+    if(c!=null){
+      if(c!="-"){
+        if(!kM){o+=c}
+        else{
+          c=mDU["-"+c];
+          if(c!=null){o+=c}
+        }
+        kM=false;
+      }
+      else{kM=true;}
+    }
+  }
+  return o
+}
+
         function showSetupLink(){
-            prompt("Here is additional query\nIt's the link in base64 : ...?src=",btoa(prompt("Enter stream link")))
+            prompt("Here is additional query\nIt's the link in base64 : ...?src=",enU(prompt("Enter stream link")))
         }
         function selfCheckUrl(){//self check url with custom rule
           var cLoc=window.location.href||window.location,aQ=("?"+cLoc).split("?");
@@ -368,7 +426,7 @@ class VideoRTC extends HTMLElement {
                 else if(lP[1]=="mode"&&lP[2].length>0){sMode=lP[2]}
                 else if(lP[1]=="src"&&lP[2].length>0){
                   try{
-                    return atob(lP[2]);
+                    return deU(lP[2]);
                   }catch(e){return ""}
                  
                 }
