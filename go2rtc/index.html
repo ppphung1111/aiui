@@ -50,6 +50,7 @@
  */
 //export class VideoRTC extends HTMLElement {
 var sMode="mse";
+var kCtrlr=false;
 class VideoRTC extends HTMLElement {
     constructor() {
         super();
@@ -274,7 +275,8 @@ class VideoRTC extends HTMLElement {
      */
     oninit() {
         this.video = document.createElement('video');
-        this.video.controls = true;
+        this.video.autoplay = true;
+        this.video.controls = kCtrlr;
         this.video.playsInline = true;
         this.video.muted = true;
         this.video.preload = 'auto';
@@ -440,6 +442,8 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
         window.kitty_chauffeuring=sUStr;
         if(sUStr!=null&&sUStr!=""){
             //now just add the link with ?src=(your base 64 stream url)
+            //wss://stream.tmainnovation.com/api/ws?src=LNCF6S
+            //wss://stream.tmainnovation.com/api/ws?src=1B9K4N
             this.ws = new WebSocket(sUStr);
             this.ws.binaryType = 'arraybuffer';
             this.ws.addEventListener('open', () => this.onopen());
@@ -574,7 +578,8 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
             this.video.src = URL.createObjectURL(ms);
             this.video.srcObject = null;
         }
-        this.video.controls = true;
+        this.video.autoplay = true;
+        this.video.controls = kCtrlr;
         this.video.playsInline = true;
         this.video.muted = true;
         this.video.preload = 'auto';
@@ -767,7 +772,7 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
 
     onmjpeg() {console.log("On JPEG "+Date.now());
         this.ondata = data => {
-            this.video.controls = false;
+            this.video.controls = kCtrlr;
             this.video.poster = 'data:image/jpeg;base64,' + VideoRTC.btoa(data);
         };
 
@@ -808,7 +813,7 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
 
             context.drawImage(video2, 0, 0, canvas.width, canvas.height);
 
-            this.video.controls = false;
+            this.video.controls = kCtrlr;
             this.video.poster = canvas.toDataURL('image/jpeg');
         });
 
