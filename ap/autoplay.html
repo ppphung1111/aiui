@@ -23,7 +23,7 @@
     var intervalID = null;
     var time = 0;
     var speed = 15; // frames per seconds (fps). Change this value to balance quality against performances
-
+vid.muted=true;
     // wait for the onloadedmetadata event to get the video duration
     vid.onloadedmetadata = function() {
         var duration = vid.duration;
@@ -39,10 +39,10 @@
     };
 
     // clicking the video stops inline playback and triggers native playback including audio. No need to seek.
-    vid.addEventListener('click', function(){
+    document.body.addEventListener('click', function(){
         clearInterval(intervalID);
         intervalID = null;
-        this.play();
+        vid.play();
     });
 
 </script>
