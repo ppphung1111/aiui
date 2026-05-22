@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Video autoplay on iPhone / iPAD</title>
+</head>
+<style>
+    /*video::-webkit-media-controls{
+        display: none;
+    }*/
+    video {
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
+        /* Other transform properties here */
+    }
+</style>
+<body>
+<video id="vid" src="director.mp4" preload="metadata"></video>
+<script>
+//autoplay muted controls
+    var vid2 = document.getElementById("vid"); // get reference to the video object
+    applyAutoPlay(vid2)
+    function applyAutoPlay(eV){
+      eV._speed = 15; // frames per seconds (fps). Change this value to balance quality against performances
+      eV._tID=null;eV._vTime=0;
+      eV.muted=true;
+      eV.controls=false;
+      // wait for the onloadedmetadata event to get the eVeo duration
+      eV.onloadedmetadata = function() {
+          var duration = eV.duration;
+          eV._tID = setInterval(function(){
+            if(eV._vTime==null){eV._vTime=0}
+              eV._vTime++;
+              if (eV._vTime / eV._speed <=  duration){
+                  eV.currentTime = eV._vTime / eV._speed;
+              }else{
+                  clearInterval(eV._tID);
+                  eV._tID = null;
+              }
+          },1000 / eV._speed);
+      };
+      // clicking the eVeo stops inline playback and triggers native playback including audio. No need to seek.
+      eV.addEventListener('click', function(){
+          try{clearInterval(eV._tID);eV._tID = null;}catch(ee){}
+          if(eV._clicked==null){eV._clicked=true
+            this.play();
+            eV.controls=true;
+          }
+      });
+    }
+
+</script>
+</body>
+</html>
