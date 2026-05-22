@@ -24,31 +24,33 @@
     applyAutoPlay(vid2)
     function applyAutoPlay(eV){
       eV._speed = 15; // frames per seconds (fps). Change this value to balance quality against performances
-      eV._tID=null;eV._vTime=0;
+      eV._vTime=0;
       eV.muted=true;
       eV.controls=false;
       // wait for the onloadedmetadata event to get the eVeo duration
       //eV.onloadedmetadata = function() {
           //var duration = eV.duration;
-          eV._tID = setInterval(function(){
-            if(eV._vTime==null){eV._vTime=0}
-              eV._vTime++;
+          eV._nextPreview=function(){console.log(eV._vTime+" / "+eV.duration);
+              if(eV._vTime==null){eV._vTime=0}eV._vTime++;
               if (eV._vTime / eV._speed <=  eV.duration){
-                  eV.currentTime = eV._vTime / eV._speed;
+                eV.currentTime = eV._vTime / eV._speed;
               }else{
-                  clearInterval(eV._tID);
-                  eV._tID = null;
+                //clearInterval(eV._tID);
+                
               }
-          },1000 / eV._speed);
+              setTimeout(function(){eV._nextPreview()},1000 / eV._speed);
+          }
+          eV._nextPreview();
+          //eV._tID = setInterval(function(){},1000 / eV._speed);
       //};
       // clicking the eVeo stops inline playback and triggers native playback including audio. No need to seek.
-      eV.addEventListener('click', function(){
+      /*eV.addEventListener('click', function(){
           try{clearInterval(eV._tID);eV._tID = null;}catch(ee){}
           if(eV._clicked==null){eV._clicked=true
             this.play();
             eV.controls=true;
           }
-      });
+      });*/
     }
 
 </script>
