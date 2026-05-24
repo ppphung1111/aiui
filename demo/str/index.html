@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-<script type="module">
+<script>
 window.leVi=[];
 function applyAutoPlay(eV){
       window.leVi.push(eV);
@@ -431,7 +431,7 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
   }
   return o
 }
-
+var sVer="1.0.0";
         function showSetupLink(){
             prompt("Here is additional query\nIt's the link in base64 : ...?src=",enU(prompt("Enter stream link")))
         }
@@ -443,10 +443,11 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
               var lP=("="+aPa[i]).split("=");
               if(lP.length==2){
                 if(lP[1]=="new"){showSetupLink();}
-                if(lP[1]=="ver"){alert("1.0.0")}
+                else if(lP[1]=="ver"){alert(sVer)}
               }
               if(lP.length>2){
                 if(lP[1]=="new"){showSetupLink();}
+                else if(lP[1]=="ver"){alert(sVer)}
                 else if(lP[1]=="mode"&&lP[2].length>0){sMode=lP[2]}
                 else if(lP[1]=="src"&&lP[2].length>0){
                   try{
@@ -966,7 +967,7 @@ class VideoStream extends VideoRTC {
 
 customElements.define('video-stream', VideoStream);
 </script>
-<script type="module">
+<script>
     const params = new URLSearchParams(location.search);
 
     // support multiple streams and multiple modes
