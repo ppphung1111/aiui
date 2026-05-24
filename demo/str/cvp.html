@@ -4,6 +4,11 @@
 <head>
 </head>
 <body>
+
+<video controls autoplay muted playsinline poster="">
+  <source src="director.mp4" type="video/mp4">
+</video>
+
 <script>
 var dcv = document.createElement('canvas');
 dcv.style.position="fixed"
@@ -13,13 +18,13 @@ dcv.style.height="50%"
 var ctx = dcv.getContext('2d');
 var eVi = document.createElement('video');
 eVi.style.position="fixed"
-eVi.style.left="0px"
-eVi.style.width="200px"
-eVi.style.height="200px"
+eVi.style.bottom="0px"
+eVi.style.width="300px"
+eVi.style.height="300px"
 document.body.appendChild(eVi)
 document.body.appendChild(dcv)
 //eVi.style.visibility="hidden";
-eVi.controls=false;
+//eVi.controls=false;
 eVi.muted=true;
 eVi.inlinesplay=true;
 eVi.inlinesPlay=true;
