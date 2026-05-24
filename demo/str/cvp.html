@@ -5,32 +5,34 @@
 </head>
 <body>
 
-<video controls autoplay muted playsinline poster="">
+<video controls autoplay muted playsinline poster="" id="v1">
   <source src="director.mp4" type="video/mp4">
 </video>
 
 <script>
+var eVi = document.getElementById("v1");//createElement('video');
+eVi.style.position="fixed"
+//eVi.style.bottom="0px"
+eVi.style.width="300px"
+eVi.style.height="300px"
+document.body.appendChild(eVi)
+
 var dcv = document.createElement('canvas');
 dcv.style.position="fixed"
 dcv.style.right="0px"
 dcv.style.width="50%"
 dcv.style.height="50%"
 var ctx = dcv.getContext('2d');
-var eVi = document.createElement('video');
-eVi.style.position="fixed"
-eVi.style.bottom="0px"
-eVi.style.width="300px"
-eVi.style.height="300px"
-document.body.appendChild(eVi)
 document.body.appendChild(dcv)
-//eVi.style.visibility="hidden";
+eVi.style.visibility="hidden";
 //eVi.controls=false;
+/*
 eVi.muted=true;
 eVi.inlinesplay=true;
 eVi.inlinesPlay=true;
 eVi.autoplay=true;
 eVi.src="director.mp4";
-
+*/
 eVi.addEventListener('play', function () {
     const This=this;
     (function loop() {
