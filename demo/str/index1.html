@@ -61,16 +61,7 @@ function applyAutoPlay(eV){
       };
       eV.addEventListener('click',function(){eV.fClick()} );
     }
-function applyPlaysInline(eV){
-    eV.playsInline = true;
-    eV.playsinline = true;
-    eV.webkitPlaysInline = true;
-    eV.webkitPlaysinline = true;
-    eV.setAttribute('playsinline', 'true');
-    eV.setAttribute('webkit-playsinline', 'true');
-    eV.setAttribute('playsInline', 'true');
-    eV.setAttribute('webkit-playsInline', 'true');
-}
+
 //import {VideoRTC} from './video-rtc.js';
 
 /**
@@ -318,7 +309,8 @@ class VideoRTC extends HTMLElement {
         this.video = document.createElement('video');
         this.video.muted = true;
         //this.video.autoplay = true;
-        applyPlaysInline(this.video)
+        this.video.playsInline = true;
+        this.video.setAttribute('playsinline', '');
         this.video.preload = 'auto';
         applyAutoPlay(this.video)
         this.video.controls = kCtrlr;
@@ -400,7 +392,28 @@ class VideoRTC extends HTMLElement {
 //: / ? # [ ] @ ! $ & ' ( ) * + , ; =
 var s62="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 var mEU={
-  "-":"-0","_":"-1",".":"-2","~":"-3",":":"-4","/":"-5","?":"-6","#":"-7","[":"-8","]":"-9","@":"-A","!":"-B","$":"-C","&":"-D","'":"-E","(":"-F",")":"-G","*":"-H","+":"-I",",":"-J",";":"-K","=":"-L",
+  "-":"-0",
+  "_":"-1",
+  ".":"-2",
+  "~":"-3",
+  ":":"-4",
+  "/":"-5",
+  "?":"-6",
+  "#":"-7",
+  "[":"-8",
+  "]":"-9",
+  "@":"-A",
+  "!":"-B",
+  "$":"-C",
+  "&":"-D",
+  "'":"-E",
+  "(":"-F",
+  ")":"-G",
+  "*":"-H",
+  "+":"-I",
+  ",":"-J",
+  ";":"-K",
+  "=":"-L",
   " ":"-M",
   "%":"-N",
   '"':"-O",
@@ -443,7 +456,6 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
               var lP=("="+aPa[i]).split("=");
               if(lP.length==2){
                 if(lP[1]=="new"){showSetupLink();}
-                if(lP[1]=="ver"){alert("1.0.0")}
               }
               if(lP.length>2){
                 if(lP[1]=="new"){showSetupLink();}
@@ -607,7 +619,8 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
         
         this.video.muted = true;
         //this.video.autoplay = true;
-        applyPlaysInline(this.video)
+        this.video.playsInline = true;
+        this.video.setAttribute('playsinline', '');
         this.video.controls = kCtrlr;
         this.video.preload = 'auto';
         //this.play();
@@ -831,7 +844,8 @@ function deU(s){var c="",o="",kM=false;for(var i=0;i<s.length;i++){c=s[i];//deco
         video2.muted = true;
         applyAutoPlay(video2)
         //video2.autoplay = true;
-        applyPlaysInline(video2)
+        video2.playsInline = true;
+        video2.setAttribute('playsinline', '');
 
         video2.addEventListener('loadeddata', () => {
             if (!context) {
@@ -995,7 +1009,8 @@ customElements.define('video-stream', VideoStream);
         const video = document.createElement('video-stream');
         video.muted=true;
         video.controls=kCtrlr;
-        applyPlaysInline(video)
+        video.playsInline=true;
+        video.setAttribute('playsinline', '');
         video.background = background;
         video.mode = modes[i] || video.mode;
         video.style.flex = width;

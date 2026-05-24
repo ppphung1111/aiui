@@ -1,0 +1,22 @@
+/*********** AIUI Theme Guiding ***********
+ * Copyright 2015-2026 AIUI
+ * MIT License
+ *
+ */
+
+Domain : aiuio.pages.dev
+Test R&D : /demo
+Host Live : https://$Domain
+Host Test : https://$Domain$Test
+
+ ---- Feature ----
+
+Stream go2rtc
+  Manual get view stream page link from your server link:
+    /str?new
+    Ex: https://aiuio.pages.dev/str?new
+      It will prompt input your link then create src value
+  View stream:
+    /str?mode=&src=(your src value)
+    Ex: https://aiuio.pages.dev/str?src=...
+   
